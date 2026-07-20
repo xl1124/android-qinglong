@@ -6,6 +6,7 @@
 ![Material3](https://img.shields.io/badge/Material-3-006B5E?logo=materialdesign)
 ![AGP](https://img.shields.io/badge/AGP-9.3.0-blue)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+[![Build](https://github.com/xl1124/android-qinglong/actions/workflows/build.yml/badge.svg)](https://github.com/xl1124/android-qinglong/actions/workflows/build.yml)
 
 **qlmd3** 是一个使用 **Kotlin + Jetpack Compose (Material 3)** 构建的 [青龙面板 (QingLong)](https://github.com/whyour/qinglong) 非官方 Android 客户端。它通过青龙面板 REST API 在移动设备上提供完整的面板管理体验。
 
@@ -202,17 +203,28 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 
 > **提示**：首次构建 Gradle Wrapper 会自动下载 Gradle 9.6.1，耗时约 1-2 分钟。
 
-### 生成发布 APK
+### 通过 GitHub Actions 自动构建
+
+每次推送到 `main` 分支或提交 PR 时，GitHub Actions 会自动编译项目并生成 APK 构建产物，确保代码变更不会破坏编译。
+
+### 发布新版本
+
+1. 在 GitHub 仓库页面点击 **Releases** → **Create a new release**
+2. 填写版本号（如 `v1.0.0`），标签名以 `v` 开头
+3. GitHub Actions 会自动编译 Debug + Release APK，并发布到 Release 页面
+
+> Release APK 是未签名的，安装前需要自行签名，或直接使用 Debug APK（已使用 debug 密钥签名）。
+
+你也可以在本地构建 Release APK：
 
 ```bash
-# 构建 Release APK（启用混淆和资源压缩）
 ./gradlew assembleRelease
-
-# 签名后的 APK 位于：
-# app/build/outputs/apk/release/app-release.apk
+# 输出：
+# app/build/outputs/apk/debug/app-debug.apk     （已签名，可直接安装）
+# app/build/outputs/apk/release/app-release-unsigned.apk  （未签名，需自行签名）
 ```
 
-> Release 构建需要配置签名密钥，详见 [Android 官方文档](https://developer.android.com/studio/publish/app-signing)。
+> 本地 Release 构建需要配置签名密钥，详见 [Android 官方文档](https://developer.android.com/studio/publish/app-signing)。
 
 ---
 
