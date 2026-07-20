@@ -32,7 +32,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Decode signing keystore
-        if: ${{ secrets.KEYSTORE_B64 != '' }}
+        if: env.KEYSTORE_B64 != ''
         env:
           KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
         run: echo "$KEYSTORE_B64" | base64 -d > app/signing.jks
