@@ -5,6 +5,8 @@
 .DS_Store
 .codewhale/
 theme_settings_patch.txt
+*.jks
+*.keystore
 /build
 /captures
 .externalNativeBuild
