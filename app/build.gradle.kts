@@ -22,24 +22,23 @@ android {
     }
 
     signingConfigs {
-        create("release")
-    }
-
-    buildTypes {
-        release {
-            // CI 签名：环境变量配置了密钥文件时自动签名
+        create("release") {
             val signingPath = System.getenv("SIGNING_KEYSTORE_PATH")
             if (signingPath != null) {
                 val signingFile = file(signingPath)
                 if (signingFile.exists()) {
-                    signingConfig = signingConfigs["release"].get().apply {
-                        storeFile = signingFile
-                        storePassword = System.getenv("SIGNING_STORE_PASSWORD") ?: ""
-                        keyAlias = System.getenv("SIGNING_KEY_ALIAS") ?: ""
-                        keyPassword = System.getenv("SIGNING_KEY_PASSWORD") ?: ""
-                    }
+                    storeFile = signingFile
+                    storePassword = System.getenv("SIGNING_STORE_PASSWORD") ?: ""
+                    keyAlias = System.getenv("SIGNING_KEY_ALIAS") ?: ""
+                    keyPassword = System.getenv("SIGNING_KEY_PASSWORD") ?: ""
                 }
             }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("release")
 
             isMinifyEnabled = true
             isShrinkResources = true
