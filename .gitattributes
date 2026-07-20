@@ -1,0 +1,16 @@
+# Auto-detect text files and handle line endings
+* text=auto
+
+# Gradle
+*.gradle.kts text diff=java
+*.gradle text diff=java
+
+# Kotlin
+*.kt text diff=kotlin
+
+# XML
+*.xml text diff=xml
+
+# Shell
+*.sh text eol=lf
+*.bat text eol=crlf
